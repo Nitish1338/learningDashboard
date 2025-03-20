@@ -2,7 +2,7 @@ import { Router} from "express";
 import {resgisterUser} from "../controllers/user.js";
 
 
-const Router = Router()
+const router = Router()
 
 
 router.route("/register").post(resgisterUser)
