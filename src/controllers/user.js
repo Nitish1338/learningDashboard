@@ -3,30 +3,12 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.js";
 import { uploadCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import multer from "multer";
 
-// Set up multer storage configuration
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');  // Folder where files will be temporarily saved
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);  // Give a unique name to the file
-    }
-});
 
-const upload = multer({ storage: storage });
-
-// Middleware for handling file upload
-// It handles both avatar and cover image uploads
-export const uploadFiles = upload.fields([
-    { name: 'avatar', maxCount: 1 },
-    { name: 'coverImage', maxCount: 1 }
-]);
-
-// Register User Controller
 const registerUser = asyncHandler(async (req, res) => {
+    
     const { fullname, email, username, password } = req.body;
+    //console.log("email",email);
 
     // Validate required fields
     if ([fullname, email, username, password].some((field) => field?.trim() === "")) {
